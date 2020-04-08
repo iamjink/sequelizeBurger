@@ -1,0 +1,34 @@
+<h1>Eat-Da-Burger!</h1>
+<div id="t" style="display: none">
+    <img class="bgImage" src="{{../public/assets/images/asset.png}}">
+</div>
+
+<h2>Insert Your Burger and Devour It!</h2>
+
+<ul>
+    {{#each burgers}}
+     {{#unless this.devoured}}
+     
+    <li>{{this.burger_name}}: {{this.devoured}}</li>
+    <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+    <button TYPE="submit">Devour It!</button>
+    </form>
+    
+   {{/unless}}
+    {{/each}}
+</ul>
+
+<h2>Yum!! Would You Like Another Burger?</h2>
+<ul>
+    {{#each burgers}}
+    {{#if this.devoured}}
+    <p>{{this.id}}: {{this.burger_name}}: {{this.devoured}}</p>
+    {{/if}}
+    {{/each}}
+</ul>
+
+<h2>Add a Burger!</h2>
+  <form method="POST" action="/burgers/">
+        <input type="text" name="burger_name">
+        <button type="submit">Enter Your Burger!</button>
+    </form>
