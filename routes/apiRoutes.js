@@ -1,12 +1,12 @@
 var db = require("../models");
 
 module.exports = function (app) {
-
     //get all burgers
     app.get("/", function (req, res) {
-        db.Burgers.findAll({}).then(function (data) {
+        db.Burgers.findAll({
+       
+        }).then(function (data) {
             console.log(data);
-     
             res.render("index", data);
         });
     });

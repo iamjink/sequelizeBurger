@@ -1,34 +1,58 @@
-<h1>Eat-Da-Burger!</h1>
-<div id="t" style="display: none">
-    <img class="bgImage" src="{{../public/assets/images/asset.png}}">
+<div class="container">
+    <h1>EatDaBurger!</h1>
+
 </div>
 
-<h2>Insert Your Burger and Devour It!</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <img class="bgImage" src="/assets/images/asset_05.png">
+        </div>
+        <div class="col-sm">
+            <img class="bgImage" src="/assets/images/asset.png">
+        </div>
+        <div class="col-sm">
+            <img class="bgImage" src="/assets/images/Asset_04.png">
+        </div>
+    </div>
+</div>
 
-<ul>
-    {{#each burgers}}
-     {{#unless this.devoured}}
-     
-    <li>{{this.burger_name}}: {{this.devoured}}</li>
-    <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
-    <button TYPE="submit">Devour It!</button>
-    </form>
-    
-   {{/unless}}
-    {{/each}}
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h5>Insert Your Burger and Devour It!</h5>
+            <ul>{{#each Burgers}}
+                {{#unless this.devoured}}
+                <li>{{this.burger_name}}: {{this.devoured}}</li>
+                <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
+                    <button TYPE="submit">Devour It!</button>
+                </form>
+                {{/unless}}
+                {{/each}}
+            </ul>
+            <br>
+            <h5>Add a Burger!</h5>
+            <form id="burger-form">
+                <input type="text" name="burger_name" placeholder="Enter name of burger" id="burger-name">
+                <button type="submit">Enter Your Burger!</button>
+            </form>
+        </div>
 
-<h2>Yum!! Would You Like Another Burger?</h2>
-<ul>
-    {{#each burgers}}
-    {{#if this.devoured}}
-    <p>{{this.id}}: {{this.burger_name}}: {{this.devoured}}</p>
-    {{/if}}
-    {{/each}}
-</ul>
+        <div class="col-sm">
+            Who Is Eating the Burger?
+        </div>
+        <div class="col-sm">
+            <h5>Yum!! Would You Like Another Burger?</h5>
+            <ul>
+                {{#each Burgers}}
+                {{#if this.devoured}}
+                <p>{{this.id}}: {{this.burger_name}}: {{this.devoured}}</p>
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
 
-<h2>Add a Burger!</h2>
-  <form method="POST" action="/burgers/">
-        <input type="text" name="burger_name">
-        <button type="submit">Enter Your Burger!</button>
-    </form>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
