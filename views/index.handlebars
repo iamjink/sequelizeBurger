@@ -20,26 +20,29 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h5>Burger Menu</h5>
-            <ul>{{#each burgers}}
-                {{#unless this.devoured}}
-                <li>{{this.burger_name}}: {{this.devoured}}
-                    <button data-toggle="popover" data-placement="right" data-html="true" data-title='Devour It!'
-                        data-contents='
-                        <form id="customer" action="/update/{{this.id}}?_method=PUT" method="POST">
-                        <div class="form-group">
-                            <input name="customer_dvoured" value="1" type="number" style="display:none;">
-                            <input name="customer_name" type="text" class="form-control" placeholder="Your name">
-                            </div>
-                            </form>
-                    ' class="not-devoured">{{name}}</button>
+            <h5>Burger Menu</h5>{{#each burgers}}
+            {{#unless this.devoured}}
+            <ul>
+                <li>
+                    <script>
+                        $(function () {
+                            $('[data-toggle="popover"]').popover()
+                        })
+                    </script>
+                    <button data-toggle="popover" data-placement="right" data-html="true"
+                        data-title='Devour This Burger?' data-content='
+                                <form id="customer" action="/update/{{this.id}}?_method=PUT" method="POST">
+                                    <div class="form-group">
+                                        <input name="customer_devoured" value="1" type="number" style="display:none;">
+                                        <input name="customer_name" type="text" class="form-control" placeholder="Enter Your Name">
+                                        <button type="submit">Devour</button>
+                                    </div>
+                                </form>' class="not-devoured">{{burger_name}}</button>
+
                 </li>
-                <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
-                    <button TYPE="submit">Devour It!</button>
-                </form>
-                {{/unless}}
-                {{/each}}
             </ul>
+            {{/unless}}
+            {{/each}}
         </div>
 
         <div class="col-sm">

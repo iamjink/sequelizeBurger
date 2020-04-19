@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     var Customer = sequelize.define("Customer", {
         name: {
             type: DataTypes.STRING,
@@ -7,13 +7,11 @@ module.exports = function(sequelize, DataTypes) {
                 len: [1,150]
             }
         }
+    }, {
+        timestamps: false
     });
-
-    Customer.associate = function(models) {
-        Customer.hasMany(models.Burgers, {
-           
-        })
-    }
-
+    Customer.associate = function (models) {
+        Customer.hasMany(models.Burgers)
+    };
     return Customer;
-}
+};
