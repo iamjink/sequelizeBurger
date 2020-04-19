@@ -1,39 +1,27 @@
 require("dotenv").config();
-var express = require("express");
-var exphbs = require("express-handlebars");
-var path = require("path");
-
-var db = require("./models");
-
-var app = express();
-var PORT = process.env.PORT || 3000;
+const express = require("express");
+const exphbs = require("express-handlebars");
+const path = require("path");
+const methodOverride = require("method-override");
+const routes = require("./controller/controller");
+const db = require("./models");
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use('/static', express.static(path.join(__dirname, 'public')))
-
+app.use('/static', express.static(path.join(__dirname, 'public')));
 // Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
+app.engine("handlebars",exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
-
-var syncOptions = { force: false };
-
-// If running a test, set syncOptions.force to true
-// clearing the `testdb`
-if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
-}
+app.use("/", routes);
+app.unsubscribe(express.static('public'));
+const syncOptions = { force: false };
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
@@ -45,5 +33,3 @@ db.sequelize.sync(syncOptions).then(function() {
     );
   });
 });
-
-module.exports = app;

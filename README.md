@@ -13,9 +13,11 @@ Your app will store every burger in a database, whether devoured or not.
  
  * `express`
  * `express-handlebars`
- * `mysql`
+ * `mysql2`
  * `Sequelize`
  * `sequelize-cli`
+ * `method-override`
+ * `dotenv`
 
 ## Node commands
 
@@ -27,11 +29,11 @@ Your app will store every burger in a database, whether devoured or not.
   * `Heroku`
   * `Node.js`
   * `MySQL`
-
   * `CRUD`
   * `Models`
   * `Validations`
   * `Associations`
+  * `JawsDB`
 
   ## Database
   

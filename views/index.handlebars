@@ -20,33 +20,44 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h5>Insert Your Burger and Devour It!</h5>
-            <ul>{{#each Burgers}}
+            <h5>Burger Menu</h5>
+            <ul>{{#each burgers}}
                 {{#unless this.devoured}}
-                <li>{{this.burger_name}}: {{this.devoured}}</li>
+                <li>{{this.burger_name}}: {{this.devoured}}
+                    <button data-toggle="popover" data-placement="right" data-html="true" data-title='Devour It!'
+                        data-contents='
+                        <form id="customer" action="/update/{{this.id}}?_method=PUT" method="POST">
+                        <div class="form-group">
+                            <input name="customer_dvoured" value="1" type="number" style="display:none;">
+                            <input name="customer_name" type="text" class="form-control" placeholder="Your name">
+                            </div>
+                            </form>
+                    ' class="not-devoured">{{name}}</button>
+                </li>
                 <form action="/burgers/{{this.id}}?_method=PUT" method="POST">
                     <button TYPE="submit">Devour It!</button>
                 </form>
                 {{/unless}}
                 {{/each}}
             </ul>
-            <br>
-            <h5>Add a Burger!</h5>
-            <form id="burger-form">
-                <input type="text" name="burger_name" placeholder="Enter name of burger" id="burger-name">
-                <button type="submit">Enter Your Burger!</button>
-            </form>
         </div>
 
         <div class="col-sm">
-            Who Is Eating the Burger?
+            <h5>Add a Burger!</h5>
+            <form id="burger-form" action="/burgers" method="POST">
+                <div class="form-group">
+                    <input type="text" name="burger_name" placeholder="Enter name of burger" id="burger-name"
+                        maxlength="40" placeholder="Enter burger name">
+                    <button type="submit">Enter Your Burger!</button>
+                </div>
+            </form>
         </div>
         <div class="col-sm">
             <h5>Yum!! Would You Like Another Burger?</h5>
             <ul>
-                {{#each Burgers}}
+                {{#each burgers}}
                 {{#if this.devoured}}
-                <p>{{this.id}}: {{this.burger_name}}: {{this.devoured}}</p>
+                <p>{{this.burger_name}} eaten by {{Customer.name}}</p>
                 {{/if}}
                 {{/each}}
             </ul>

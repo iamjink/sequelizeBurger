@@ -13,9 +13,12 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    Burgers.associate = function(models){
-        Burgers.hasMany(models.Post, {
-            onDelete: "cascade"
+    Burgers.associate = function (models) {
+        Burgers.belongsTo(models.Customer, {
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: true
+            }
         });
     };
     return Burgers;
